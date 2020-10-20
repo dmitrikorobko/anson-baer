@@ -20,27 +20,42 @@ headerBurger.addEventListener('click', () => {
   navList.classList.toggle('nav__list--active');
 });
 
+// close open menu after window resize if window width less then 1200
+
+const closeOpenMenuAfterWindowResize = () => {
+  if(window.innerWidth > 1200) {
+    htmlBody.classList.remove('lock');
+    page.classList.remove('page--transformed');
+    headerBurger.classList.remove('header__burger--active');
+    headerSocial.classList.remove('header__social--active');
+    headerSearch.classList.remove('header__search--active');
+    navList.classList.remove('nav__list--active');
+  };
+};
+
 // circles on the main screen
 
 const circlesItems = document.querySelectorAll('.circles__item');
 
 const checkCircleItems = () => {
-  circlesItems.forEach((el, index) => {
-    if(window.innerWidth >= 1200) {
-      el.addEventListener('mouseover', e => {
-        headersItems.forEach(el => {
-          el.style.display = 'none';
+    circlesItems.forEach((el, index) => {
+        el.addEventListener('mouseover', e => {
+          if(window.innerWidth > 1200) {
+            headersItems.forEach(el => {
+              el.style.display = 'none';
+            });
+            headersItems[index].style.display = 'block';
+          };
         });
-        headersItems[index].style.display = 'block';
-      });
-      el.addEventListener('mouseout', e => {
-        headersItems.forEach(el => {
-          el.style.display = 'none';
+        el.addEventListener('mouseout', e => {
+          if(window.innerWidth > 1200) {
+            headersItems.forEach(el => {
+              el.style.display = 'none';
+            });
+            headersItems[0].style.display = 'block';
+          };
         });
-        headersItems[0].style.display = 'block';
-      });
-    };
-  });
+    });
 };
 
 checkCircleItems();
@@ -57,34 +72,46 @@ const checkCirclesSlider = () => {
     startCirclesItems.forEach(el => {
       el.classList.add('swiper-slide');
     });
-    const swiperHome = new Swiper('.swiper-container-home', {
-      slidesPerView: 'auto',
-      spaceBetween: 15,
-      centeredSlides: true,
-      initialSlide: 3,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-    const swiperStart = new Swiper('.swiper-container-start', {
-      slidesPerView: 'auto',
-      spaceBetween: 15,
-      centeredSlides: true,
-      initialSlide: 1,
-      breakpoints: {
-        0: {
-          allowTouchMove: true,
+    if(!document.querySelector('.swiper-container-initialized')) {
+      const swiperHome = new Swiper('.swiper-container-home', {
+        slidesPerView: 'auto',
+        spaceBetween: 15,
+        centeredSlides: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
         },
-        1201: {
-          allowTouchMove: false,
-        }
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
+        breakpoints: {
+          0: {
+            allowTouchMove: true,
+          },
+          1201: {
+            allowTouchMove: false,
+          }
+        },
+      });
+      const swiperStart = new Swiper('.swiper-container-start', {
+        slidesPerView: 'auto',
+        spaceBetween: 15,
+        centeredSlides: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        breakpoints: {
+          0: {
+            allowTouchMove: true,
+          },
+          1201: {
+            allowTouchMove: false,
+          }
+        },
+      });
+      const paginationBullets = document.querySelectorAll('.swiper-pagination-bullet');
+      if(document.querySelector('.swiper-pagination')) {
+        paginationBullets[Math.round(paginationBullets.length / 2) - 1].click();
+      };
+    };
   } else {
     circlesItems.forEach(el => {
       el.classList.remove('swiper-slide');
@@ -94,6 +121,10 @@ const checkCirclesSlider = () => {
       el.classList.remove('swiper-slide');
       el.classList.remove('swiper-slide-active');
     });
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    if(swiperWrapper) {
+      swiperWrapper.setAttribute('transform', 'translate(0);');
+    };
   };
 };
 
@@ -146,6 +177,188 @@ if(changeTextOnHover) {
   });
 };
 
+// map init
+
+const isMap = document.getElementById('map');
+
+if(isMap) {
+  const location = { lat: 59.433302, lng: 24.760004 };
+  function initMap() {
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: location,
+    zoom: 17,
+    gestureHandling: 'cooperative',
+    styles: [{
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#e9e9e9"
+          },
+          {
+            "lightness": 17
+          }
+        ]
+      },
+      {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#f5f5f5"
+          },
+          {
+            "lightness": 20
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "#ffffff"
+          },
+          {
+            "lightness": 17
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+            "color": "#ffffff"
+          },
+          {
+            "lightness": 29
+          },
+          {
+            "weight": 0.2
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#ffffff"
+          },
+          {
+            "lightness": 18
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#ffffff"
+          },
+          {
+            "lightness": 16
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#f5f5f5"
+          },
+          {
+            "lightness": 21
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#dedede"
+          },
+          {
+            "lightness": 21
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+            "visibility": "on"
+          },
+          {
+            "color": "#ffffff"
+          },
+          {
+            "lightness": 16
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [{
+            "saturation": 36
+          },
+          {
+            "color": "#333333"
+          },
+          {
+            "lightness": 40
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#f2f2f2"
+          },
+          {
+            "lightness": 19
+          }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [{
+            "color": "#fefefe"
+          },
+          {
+            "lightness": 20
+          }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+            "color": "#fefefe"
+          },
+          {
+            "lightness": 17
+          },
+          {
+            "weight": 1.2
+          }
+        ]
+      }
+    ]
+  });
+  const marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title: 'Maakri 19/1, Tallinn 10145, Estonia',
+      label: '',
+      icon: 'img/icons/map-marker.svg',
+  });
+  };
+};
+
 // set map height
 
 const contactMap = document.querySelector('.contact__map');
@@ -157,22 +370,6 @@ const setMapHeight = () => {
 };
 
 setMapHeight();
-
-// news items height
-
-const newsItems = document.querySelectorAll('.news__item');
-
-const setNewsItemsHeight = () => {
-  if(newsItems) {
-    newsItems.forEach(el => {
-      if(el.querySelector('.news__img') === null) {
-        el.querySelector('.news__content').style.height = el.querySelector('.news__content').offsetWidth * 0.93 + 'px';
-      };
-    });
-  };
-};
-
-setNewsItemsHeight();
 
 // close modal
 
@@ -312,6 +509,7 @@ if(startForm) {
   startForm.addEventListener('click', e => {
     if(e.target.classList.contains('swiper-button-next') || e.target.classList.contains('swiper-button-prev') || e.target.classList.contains('swiper-pagination-bullet')) {
       startFormFade();
+      setStartFormPagesHeight();
     };
   });
 };
@@ -347,14 +545,24 @@ const setFieldsHeight = () => {
 
 setFieldsHeight();
 
+// start form height after window resize
+
+const setStartFormPagesHeight = () => {
+  if(startForm) {
+    const startFormPagesHeight = startFormPages.style.height;
+    startFormPages.style.minHeight = startFormPagesHeight;
+  };
+};
+
 // window resize
 
 window.addEventListener('resize', () => {
+  setStartFormPagesHeight();
   checkCirclesSlider();
   checkCircleItems();
   setMapHeight();
-  setNewsItemsHeight();
   openPackageModal();
   setFieldsHeight();
   startFormFade();
+  closeOpenMenuAfterWindowResize();
 });
