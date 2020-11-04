@@ -7,6 +7,7 @@ const headerSearch = document.querySelector('.header__search');
 const headerSocial = document.querySelector('.header__social');
 const navList = document.querySelector('.nav__list');
 
+
 // burger menu
 
 headerBurger.addEventListener('click', () => {
@@ -179,189 +180,9 @@ if(changeTextOnHover) {
 
 // map init
 
-const isMap = document.getElementById('map');
 
-if(isMap) {
-  const location = { lat: 59.433302, lng: 24.760004 };
-  function initMap() {
-  const map = new google.maps.Map(document.getElementById('map'), {
-    center: location,
-    zoom: 17,
-    gestureHandling: 'cooperative',
-    styles: [{
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#e9e9e9"
-          },
-          {
-            "lightness": 17
-          }
-        ]
-      },
-      {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#f5f5f5"
-          },
-          {
-            "lightness": 20
-          }
-        ]
-      },
-      {
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [{
-            "color": "#ffffff"
-          },
-          {
-            "lightness": 17
-          }
-        ]
-      },
-      {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [{
-            "color": "#ffffff"
-          },
-          {
-            "lightness": 29
-          },
-          {
-            "weight": 0.2
-          }
-        ]
-      },
-      {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#ffffff"
-          },
-          {
-            "lightness": 18
-          }
-        ]
-      },
-      {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#ffffff"
-          },
-          {
-            "lightness": 16
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#f5f5f5"
-          },
-          {
-            "lightness": 21
-          }
-        ]
-      },
-      {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#dedede"
-          },
-          {
-            "lightness": 21
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.stroke",
-        "stylers": [{
-            "visibility": "on"
-          },
-          {
-            "color": "#ffffff"
-          },
-          {
-            "lightness": 16
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.fill",
-        "stylers": [{
-            "saturation": 36
-          },
-          {
-            "color": "#333333"
-          },
-          {
-            "lightness": 40
-          }
-        ]
-      },
-      {
-        "elementType": "labels.icon",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      },
-      {
-        "featureType": "transit",
-        "elementType": "geometry",
-        "stylers": [{
-            "color": "#f2f2f2"
-          },
-          {
-            "lightness": 19
-          }
-        ]
-      },
-      {
-        "featureType": "administrative",
-        "elementType": "geometry.fill",
-        "stylers": [{
-            "color": "#fefefe"
-          },
-          {
-            "lightness": 20
-          }
-        ]
-      },
-      {
-        "featureType": "administrative",
-        "elementType": "geometry.stroke",
-        "stylers": [{
-            "color": "#fefefe"
-          },
-          {
-            "lightness": 17
-          },
-          {
-            "weight": 1.2
-          }
-        ]
-      }
-    ]
-  });
-  const marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      title: 'Maakri 19/1, Tallinn 10145, Estonia',
-      label: '',
-      icon: 'img/icons/map-marker.svg',
-  });
-  };
-};
 
-// set map height
-
-const contactMap = document.querySelector('.contact__map');
+let contactMap = document.querySelector('.contact__map');
 
 const setMapHeight = () => {
   if(contactMap) {
@@ -370,6 +191,192 @@ const setMapHeight = () => {
 };
 
 setMapHeight();
+
+
+const isMap = document.getElementById('map');
+
+if(isMap) {
+  
+  function initMap() {
+
+    let location = { lat: 59.433302, lng: 24.760004 };
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: location.lat, lng: location.lng},
+      zoom: 17,
+      
+      styles: [{
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#e9e9e9"
+            },
+            {
+              "lightness": 17
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#f5f5f5"
+            },
+            {
+              "lightness": 20
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry.fill",
+          "stylers": [{
+              "color": "#ffffff"
+            },
+            {
+              "lightness": 17
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+              "color": "#ffffff"
+            },
+            {
+              "lightness": 29
+            },
+            {
+              "weight": 0.2
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#ffffff"
+            },
+            {
+              "lightness": 18
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#ffffff"
+            },
+            {
+              "lightness": 16
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#f5f5f5"
+            },
+            {
+              "lightness": 21
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#dedede"
+            },
+            {
+              "lightness": 21
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+              "visibility": "on"
+            },
+            {
+              "color": "#ffffff"
+            },
+            {
+              "lightness": 16
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text.fill",
+          "stylers": [{
+              "saturation": 36
+            },
+            {
+              "color": "#333333"
+            },
+            {
+              "lightness": 40
+            }
+          ]
+        },
+        {
+          "elementType": "labels.icon",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "geometry",
+          "stylers": [{
+              "color": "#f2f2f2"
+            },
+            {
+              "lightness": 19
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "geometry.fill",
+          "stylers": [{
+              "color": "#fefefe"
+            },
+            {
+              "lightness": 20
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+              "color": "#fefefe"
+            },
+            {
+              "lightness": 17
+            },
+            {
+              "weight": 1.2
+            }
+          ]
+        }
+      ]
+    });
+    let marker = new google.maps.Marker({
+        position: {lat: location.lat, lng: location.lng},
+        map: map,
+        title: 'Maakri 19/1, Tallinn 10145, Estonia',
+        label: '',
+        icon: '../wp-content/themes/anson/img/icons/map-marker.svg',
+    });
+
+  };
+};
+
+
 
 // close modal
 
@@ -566,3 +573,4 @@ window.addEventListener('resize', () => {
   startFormFade();
   closeOpenMenuAfterWindowResize();
 });
+

@@ -38,7 +38,7 @@ function html() {
 function scripts(){
     return src([
         'app/libs/swiper/swiper-bundle.min.js',
-        'app/js/script.js',
+        'app/js/mod-script.js',
     ])
     .pipe(concat('app.min.js'))
     .pipe(eval(minifyJS)())
@@ -47,6 +47,21 @@ function scripts(){
 }
 
 function styles(){
+
+    return src('app/css/style.css')
+    .pipe(concat('style.min.css'))
+    .pipe(autoprefixer({overrideBrowserslist: ['last 4 versions']}))
+    .pipe(cleanCSS(
+        {
+            level: { 1: { specialComments: 0 } },
+            //format: 'beautify'
+        }
+    ))
+    .pipe(dest('dist/css/'))
+    .pipe(browserSync.stream())
+}
+
+function styleszz(){
     const sassStram =  src('app/sass/style.sass')
     .pipe(scss())
     .pipe(concat('sass.css'))
